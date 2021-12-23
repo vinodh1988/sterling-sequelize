@@ -9,6 +9,10 @@ var department=sequelize.define('department',{
     name:{
       type: Sequelize.TEXT,
       allowNull:false
+    },
+    headquarters:{
+      type: Sequelize.TEXT,
+      allowNull: true
     }
   });
 
@@ -35,12 +39,12 @@ var department=sequelize.define('department',{
 department.hasMany(employee,{foreignKey: 'department_id'});
 employee.belongsTo(department,{foreignKey: 'department_id'});
 
-department.sync({force: false}).then(() => {
+department.sync({alter: true,drop: false}).then(() => {
     
     console.log("Department table Synched!!!");
   });
 
-employee.sync({force: false}).then(() => {
+employee.sync({alter: true, drop: false}).then(() => {
     
     console.log("Employee table Synched!!!");
   });
